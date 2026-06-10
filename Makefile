@@ -2,19 +2,13 @@ ARG = config.txt
 
 PY3 = python3
 
-PY = ./$(ENV_NAME)/bin/$(PY3)
-
 NAME = a_maze_ing.py
 
 OUTPUT_FILE = maze.txt
 
 # Package name not defined yet
 # to be completed
-PACKAGE = ...
-
-ENV_NAME = The_A(mazing)_Team
-
-VENV = venv
+PACKAGE = mazegen-1.0.0-py3-none-any.whl
 
 PIP = pip install
 
@@ -36,15 +30,14 @@ run:
 install:
 	$(PIP) $(PACKAGE)
 
-env:
-	$(PY3) -m $(VENV) $(ENV_NAME)
+build:
+	$(PY3) mazegen -m build
 
 debug:
-	$(PY) -m $(DEBUG) $(NAME) $(ARG)
+	$(PY3) -m $(DEBUG) $(NAME) $(ARG)
 
 clean:
 	rm -rf $(CACHE)
-	rm -rf $(ENV_NAME)
 
 clean-output:
 	rm -f $(OUTPUT_FILE)
@@ -55,4 +48,4 @@ lint:
 lint-strict:
 	$(FLAKE) . ; $(MYPY) . $(MYPY_STRICT)
 
-.PHONY: install run debug clean lint lint-strict
+.PHONY: install run debug clean clean-output lint lint-strict
