@@ -65,11 +65,12 @@ def check_coord(coord: tuple[int, int], width: int, height: int) -> bool:
 
 
 def check_config_values(config: dict[str, Any]) -> bool:
-    """Check width, height, entry and exit values"""
+    """Check width, height, entry, exit and output values"""
     width = config["WIDTH"]
     height = config["HEIGHT"]
     entry = config["ENTRY"]
     exit = config["EXIT"]
+    output = config["OUTPUT_FILE"]
     if not check_size_values(width, height):
         print("Incorrect maze size")
         return False
@@ -83,5 +84,8 @@ def check_config_values(config: dict[str, Any]) -> bool:
         return False
     if not check_diff_entry_exit(entry, exit):
         print("Entry and Exit have equal coordinates")
+        return False
+    if not output or output == "":
+        print("Missing output file name")
         return False
     return True

@@ -29,3 +29,6 @@ def write_output_file(maze: Maze, config: dict[str, Any]) -> None:
     except PermissionError:
         print("Permission denied: Output file not writable")
         sys.exit()
+    except FileNotFoundError:
+        print("Output file not found. Change file name in config")
+        sys.exit()

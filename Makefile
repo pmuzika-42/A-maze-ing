@@ -6,46 +6,62 @@ NAME = a_maze_ing.py
 
 OUTPUT_FILE = maze.txt
 
-# Package name not defined yet
-# to be completed
 PACKAGE = mazegen-1.0.0-py3-none-any.whl
 
-PIP = pip install
+PIP = pip
 
 FLAKE = flake8
+
+EXCLUDE_DIR = --exclude=.venv,venv,env,build,amazing,*.egg-info
 
 MYPY = mypy
 
 MYPY_FLAGS = --warn-return-any --warn-unused-ignores --ignore-missing-imports --disallow-untyped-defs --check-untyped-defs
 
-MYPY_STRICT = --strict
-
 DEBUG = pdb
 
-CACHE = __pycache__ .mypy_cache 
+CACHE = .mypy_cache 
+
+BUILD_DIRS = dist build *.egg-info
+
+install:
+	$(PY3) -m $(PIP) install $(PACKAGE)
+
+install-dev:
+	$(PY3) -m $(PIP) install -e .
+
+uninstall:
+	$(PY3) -m $(PIP) uninstall $(PACKAGE)
+
+reinstall: distclean uninstall install-dev
 
 run:
 	$(PY3) $(NAME) $(ARG)
 
-install:
-	$(PIP) $(PACKAGE)
-
-build:
-	$(PY3) mazegen -m build
+build: distclean
+	$(PIP) install build
+	$(PY3) -m build --wheel --sdist
 
 debug:
 	$(PY3) -m $(DEBUG) $(NAME) $(ARG)
 
 clean:
+	find . -type d -name "__pycache__" -exec rm -rf {} +
 	rm -rf $(CACHE)
 
-clean-output:
+clean-output: clean
 	rm -f $(OUTPUT_FILE)
 
+distclean: clean-output
+	rm -rf $(BUILD_DIRS)
+
+clean-pack: distclean
+	rm -rf $(PACKAGE)
+
 lint:
-	$(FLAKE) . ; $(MYPY) . $(MYPY_FLAGS)
+	$(FLAKE) . $(EXCLUDE_DIR); $(MYPY) . $(MYPY_FLAGS) $(EXCLUDE_DIR)
 
 lint-strict:
-	$(FLAKE) . ; $(MYPY) . $(MYPY_STRICT)
+	$(FLAKE) . $(EXCLUDE_DIR); $(MYPY) . --strict $(EXCLUDE_DIR) --ignore-missing-imports
 
-.PHONY: install run debug clean clean-output lint lint-strict
+.PHONY: install install-dev uninstall reinstall run build debug clean clean-output clean-pack distclean lint lint-strict

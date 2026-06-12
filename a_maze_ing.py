@@ -4,7 +4,7 @@ from write_output import write_output_file
 
 
 def main() -> None:
-    """Instantiate Maze, write output and draw maze"""
+    """Instantiate Maze, write output file and draw maze"""
     if len(sys.argv) != 2:
         print(f"Usage: python3 {sys.argv[0]} <config_file>")
         return

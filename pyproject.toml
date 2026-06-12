@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mazegen"
+version = "1.0.0"
+description = "Maze generator written in Python"
+requires-python = ">=3.10"
+
+authors = [
+    {name="pabduran", email="pabduran@student.42malaga.com"},
+    {name="pmuzika", email="pmuzika@student.42malaga.com"}
+]
+
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Operating System :: OS Independent"
+]
+
+[tool.setuptools.packages.find]
+include = ["mazegen*"]

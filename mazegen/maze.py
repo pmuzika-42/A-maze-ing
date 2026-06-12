@@ -1,3 +1,7 @@
+"""Maze module including Maze class with encapsulated
+Draw42 class and Cell class"""
+
+
 import random
 from typing import Any
 import sys
@@ -9,6 +13,8 @@ from .parsers import (
 
 
 class Maze:
+    """Receive config file name as arg, generate maze and find solution."""
+
     def __init__(self, filename: str) -> None:
         """Receive name of config file and create the maze"""
         self.config: dict[str, Any] = self.parse_config(filename)
@@ -154,7 +160,7 @@ class Maze:
         return True
 
     def path_finder(self) -> list[str]:
-        """Find path using Breadth-First Search algorithm"""
+        """Solve the maze using Breadth-First Search algorithm"""
         path: list[str] = []
         paths: list[tuple[tuple[int, int], list[str]]] = [
             (self.entry, path)
@@ -175,6 +181,7 @@ class Maze:
         return []
 
     def path_cells(self) -> list[tuple[int, int]]:
+        """Return maze solution as list of cells"""
         dir = self.path_finder()
         road = [self.entry]
         for i, d in enumerate(dir):
@@ -194,6 +201,8 @@ class Maze:
         return grid
 
     class Draw42:
+        """Define the set of cells that form the 42 pattern"""
+
         def __init__(self, maze: "Maze") -> None:
             """Receive the object Maze to use its attributes"""
             self.maze = maze
@@ -256,6 +265,8 @@ class Maze:
             return x, y
 
     class Cell:
+        """Create a cell with its walls closed or opened as its attribute"""
+
         def __init__(self) -> None:
             """Define the closed walls of a cell"""
             self.closed_walls: dict[str, bool] = {"north": True,

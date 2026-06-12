@@ -1,22 +1,28 @@
-"""Terminal visual representation for the A-Maze-ing project.
+"""Terminal visual representation of the maze.
 
 Renders a :class:`maze.Maze` as colored blocks using ANSI
 truecolor escape codes, and offers an interactive menu to regenerate the
 maze, show/hide the shortest path, and cycle the wall colors.
+
+N, E, S, W are int corresponding to 4-bits code, each showing one wall closed
+(north, east, south, west).
+
+WALL, OPEN, ENTRY, EXIT, PATH, PATTERN each define one Pixel kind for the
+rendering grid.
+
+A 'Palette' type maps each pixel kind to an (r, g, b) color
 """
 
 import sys
 from mazegen.maze import Maze
 
-N: int = 1   # 0b0001 North
-E: int = 2   # 0b0010 East
-S: int = 4   # 0b0100 South
-W: int = 8   # 0b1000 West
+N: int = 1
+E: int = 2
+S: int = 4
+W: int = 8
 
-# Pixel kinds for the rendering grid.
 WALL, OPEN, ENTRY, EXIT, PATH, PATTERN = range(6)
 
-# A palette maps each pixel kind to an (r, g, b) color.
 Palette = dict[int, tuple[int, int, int]]
 
 PALETTES: list[tuple[str, Palette]] = [
