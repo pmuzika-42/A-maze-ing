@@ -148,13 +148,36 @@ The project was developed collaboratively, and most design and implementation de
 
 The project was initially planned as a two-week effort. Due to the time required for implementation, testing, and documentation, the final duration was approximately four weeks.
 
+### What Worked Well and What Could Be Improved
+
+What worked well:
+
+- The DFS generation algorithm was straightforward to implement and produced well-structured perfect mazes.
+- Splitting the code into the reusable `mazegen` package and the main script made the architecture clean.
+- BFS for pathfinding guaranteed shortest paths without extra complexity.
+
+What could be improved:
+
+- The imperfect maze strategy (breaking extra walls every 3 cells) is naive; a smarter approach would give more varied results.
+- The terminal renderer is limited by column width — very wide mazes clip on small terminals.
+- No automated test suite was included (tests were manual).
+
+### Tools Used
+
+- **Python 3.10+**: primary language.
+- **flake8**: style linting.
+- **mypy**: static type checking.
+- **pytest** (manual runs): functional verification.
+- **pip / build**: packaging and installation.
+- **Claude Code / GPT-5**: documentation drafting, README review, Makefile review, and configuration parsing assistance.
+
 ## Resources
 
 - Deep-First Search Algorithm: https://www.geeksforgeeks.org/dsa/depth-first-search-or-dfs-for-a-graph/
 - Breadth-First Search Algorithm: https://medium.com/@prajun_t/breadth-first-search-bfs-db7ffb384da7
 - Python documentation: https://www.w3schools.com/python/default.asp
 
-AI assistance: GPT-5 was used for:
+AI assistance (GPT-5 and Claude) was used for:
 
 - Drafting the initial README
 - Reviewing Makefile

@@ -21,6 +21,8 @@ def store_config(filename: str) -> dict[str, str]:
                 config[key] = value
     except FileNotFoundError:
         raise FileNotFoundError(f"File {filename} not found")
+    except PermissionError:
+        raise PermissionError(f"No permission for file {filename}")
     return config
 
 

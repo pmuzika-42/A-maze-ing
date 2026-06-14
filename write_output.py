@@ -6,9 +6,23 @@ import sys
 def write_output_file(maze: Maze, config: dict[str, Any]) -> None:
     """Write cell codes, entry, exit and path in a file .txt"""
     INVALID_CHARS = set('<>:"/\\|?*')
+    UNTOUCHABLES = {
+        "write_output.py",
+        "README.md",
+        "pyproject.toml",
+        "mazegen-1.0.0-py3-none-any.whl",
+        "Makefile",
+        "config.txt",
+        "a_maze_ing.py",
+        ".gitignore",
+    }
     filename = config["OUTPUT_FILE"]
     if any(c in INVALID_CHARS for c in filename):
-        print("Invalid filename: contains forbidden characters")
+        print("Invalid output filename: contains forbidden characters")
+        print("Output file not created")
+        sys.exit()
+    if filename in UNTOUCHABLES:
+        print("Invalid output filename: protected name")
         print("Output file not created")
         sys.exit()
     try:

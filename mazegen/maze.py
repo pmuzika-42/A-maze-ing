@@ -78,9 +78,10 @@ class Maze:
     @staticmethod
     def seed_value(config: dict[str, Any]) -> Any:
         """Get seed value if it exists"""
-        seed: Any = None
         if "SEED" in config:
             seed = config["SEED"]
+        else:
+            seed = random.randrange(2 ** 32)
         return seed
 
     @staticmethod

@@ -27,13 +27,10 @@ BUILD_DIRS = dist build *.egg-info
 install:
 	$(PY3) -m $(PIP) install $(PACKAGE)
 
-install-dev:
-	$(PY3) -m $(PIP) install -e .
-
 uninstall:
 	$(PY3) -m $(PIP) uninstall $(PACKAGE)
 
-reinstall: distclean uninstall install-dev
+reinstall: distclean uninstall install
 
 run:
 	$(PY3) $(NAME) $(ARG)
